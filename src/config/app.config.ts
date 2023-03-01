@@ -1,3 +1,1 @@
-export default (): Record<string, any> => ({
-  port: parseInt(process.env.PORT, 10) || 3000,
-});
+export const SERVER_PORT = 'PORT';
