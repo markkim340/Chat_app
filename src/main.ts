@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { SERVER_PORT } from './config/app.config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { IoAdapter } from '@nestjs/platform-socket.io';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -26,6 +27,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useWebSocketAdapter(new IoAdapter(app));
 
   const port = configService.get<string>(SERVER_PORT);
   await app.listen(port, () => Logger.log(`🚀Running on port ${port}`));
