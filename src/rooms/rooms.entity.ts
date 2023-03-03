@@ -1,5 +1,6 @@
-import { Messages } from 'src/message/message.entity';
+import { Messages } from 'src/messages/messages.entity';
 import {
+  Column,
   CreateDateColumn,
   Entity,
   OneToMany,
@@ -11,6 +12,9 @@ import {
 export class Rooms {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  socketId: string;
 
   @CreateDateColumn()
   createdAt: Date;

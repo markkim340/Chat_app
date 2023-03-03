@@ -10,9 +10,8 @@ export class RoomsService {
     private readonly roomsRepository: Repository<Rooms>,
   ) {}
 
-  async createChatRoom() {
-    const newRoom = this.roomsRepository.create();
-    return this.roomsRepository.save(newRoom);
+  async createChatRoom(socketId) {
+    return await this.roomsRepository.save(socketId);
   }
 
   async getChatRooms() {
