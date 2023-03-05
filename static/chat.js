@@ -1,11 +1,10 @@
 const socket = io('http://localhost:3003', { transports: ['websocket'] });
-console.log(socket);
 
 const messageInput = document.getElementById('message');
 const messages = document.getElementById('messages');
 
-const nickname = prompt('닉네임 입력하시오');
-let roomName = '채팅방 1';
+let nickname = '';
+let roomName = '대기실';
 
 socket.emit('logIn', nickname, roomName);
 
@@ -22,19 +21,24 @@ socket.on('message', (nickname, message) => {
   handleNewMessage(`[${nickname}] : ${message}`);
 });
 
-socket.on('join', (data) => {
-  handleNewMessage(`[${data}] 님이 입장하셨습니다.`);
+socket.on('joinMessage', (nickname, roomNameToJoin) => {
+  roomName = roomNameToJoin;
+  handleNewMessage(`[${nickname}] 님이 입장하셨습니다.`);
 });
 
-socket.on('usercount', (userCount) => {
+socket.on('exitMessage', (data) => {
+  handleNewMessage(`[${data}] 님이 나갔습니다.`);
+});
+
+socket.on('joinUserCount', (userCount) => {
   const userCounter = document.getElementById('usercount');
   userCounter.innerText = `현재 ${userCount} 명 서버 접속 중`;
 });
 
-socket.on('roomChanged', (roomNameToJoin) => {
-  roomName = roomNameToJoin;
-  handleNewMessage(`${roomNameToJoin}번 방에 입장하였습니다.`);
-});
+// socket.on('roomChanged', (roomNameToJoin) => {
+//   roomName = roomNameToJoin;
+//   handleNewMessage(`${roomNameToJoin}번 방에 입장하였습니다.`);
+// });
 
 const handleNewMessage = (message) => {
   messages.appendChild(buildNewMessage(message));
@@ -46,10 +50,11 @@ const buildNewMessage = (message) => {
   return li;
 };
 
-function joinRoom() {
+function joinRoom(nickname) {
+  console.log('제발되라', nickname);
+  nickname = nickname;
   const roomOptions = document.getElementById('roomOptions');
   const roomNameToJoin = roomOptions.options[roomOptions.selectedIndex].value;
-  const data = { roomName, roomNameToJoin };
 
-  socket.emit('joinRoom', data);
+  socket.emit('joinRoom', nickname, roomName, roomNameToJoin);
 }

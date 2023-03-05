@@ -34,8 +34,9 @@
     </style>
   </head>
   <body>
-    <select id="roomOptions" onchange="joinRoom()">
-      <option value="채팅방 1" selected>채팅방 1</option>
+    <select id="roomOptions" onchange="joinRoom('nickname')">
+      <option value="대기실" selected>대기실</option>
+      <option value="채팅방 1">채팅방 1</option>
       <option value="채팅방 2">채팅방 2</option>
     </select>
     <div class="container">
@@ -119,6 +120,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="./chat.js"></script>
+    <script src="../static/chat.js"></script>
   </body>
 </html>

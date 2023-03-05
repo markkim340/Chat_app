@@ -39,19 +39,34 @@ export class RoomsGateway
   @SubscribeMessage('logIn')
   async logIn(@MessageBody() data: string, @ConnectedSocket() client: Socket) {
     const [nickname, roomName] = data;
-    this.server.emit('join', nickname);
-    const joinedUsersCount = this.server.engine.listenerCount('connection');
-    this.server.emit('usercount', joinedUsersCount);
     client.join(roomName); // 기본 채팅방 입장
+    this.server.emit('joinMessage', nickname, roomName);
+
+    //11
+    const joinedUsersCount = this.server.engine.listenerCount('connection');
+    this.server.emit('joinUserCount', joinedUsersCount);
+
+    // //22
+    // this.server.engine.prependListener('connection', (num) => {
+    //   console.log(num);
+    //   this.server.emit('joinUserCount', num);
+    // });
+
+    // //33
+    // const numClients = io
   }
 
   @SubscribeMessage('joinRoom')
   async joinChatRooms(client: Socket, data: any) {
-    const { roomName, roomNameToJoin } = data;
-    client.leave(roomName);
-    client.join(roomNameToJoin);
+    const [nickname, roomName, roomNameToJoin] = data;
 
-    this.server.emit('roomChanged', roomNameToJoin);
+    client.leave(roomName);
+    this.server.to(roomName).emit('exitMessage', nickname);
+
+    client.join(roomNameToJoin);
+    this.server
+      .to(roomNameToJoin)
+      .emit('joinMessage', nickname, roomNameToJoin);
   }
 
   @SubscribeMessage('message')
