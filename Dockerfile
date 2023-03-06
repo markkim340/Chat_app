@@ -24,6 +24,10 @@ COPY --from=build /usr/src/app/dist ./dist
 
 COPY package*.json ./
 
+COPY views/ /usr/src/app/views
+
+COPY public/ /usr/src/app/public
+
 RUN npm install --only=production
 
 RUN rm package*.json

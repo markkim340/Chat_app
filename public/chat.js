@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3003', { transports: ['websocket'] });
+const socket = io('http://localhost:3000', { transports: ['websocket'] });
 
 const messageInput = document.getElementById('message');
 const messages = document.getElementById('messages');
