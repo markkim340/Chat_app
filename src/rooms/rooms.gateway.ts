@@ -42,18 +42,8 @@ export class RoomsGateway
     client.join(roomName); // 기본 채팅방 입장
     this.server.emit('joinMessage', nickname, roomName);
 
-    //11
-    const joinedUsersCount = this.server.engine.listenerCount('connection');
+    const joinedUsersCount = client.nsp.adapter.rooms.size - 1;
     this.server.emit('joinUserCount', joinedUsersCount);
-
-    // //22
-    // this.server.engine.prependListener('connection', (num) => {
-    //   console.log(num);
-    //   this.server.emit('joinUserCount', num);
-    // });
-
-    // //33
-    // const numClients = io
   }
 
   @SubscribeMessage('joinRoom')
@@ -72,7 +62,6 @@ export class RoomsGateway
   @SubscribeMessage('message')
   async handleMessage(@MessageBody() data: any) {
     const { nickname, roomName, message } = data;
-    console.log('메세지내용', nickname, roomName, message);
     this.server.to(roomName).emit('message', nickname, message);
   }
 }

@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>채팅서비스</title>
+    <!-- Load Bootstrap CSS -->
+    <link
+      rel='stylesheet'
+      href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css'
+    />
+    <style>
+      /* Set max height for user list */ .user-list { max-height: 400px;
+      overflow-y: auto; } /* Set chat window height */ .chat-window { height:
+      calc(100vh - 230px); max-height: calc(100vh - 230px); overflow-y: auto; }
+      /* Move exit button to the right */ .exit-btn { float: right; } /* Set
+      online users box height to match chat window height */ .online-users-box {
+      height: calc(100vh - 230px); max-height: calc(100vh - 230px); }
+    </style>
+  </head>
+  <body>
+    <select id='roomOptions' onchange='joinRoom("{{nickname}}")'>
+      <option value='대기실' selected>대기실</option>
+      <option value='채팅방 1'>채팅방 1</option>
+      <option value='채팅방 2'>채팅방 2</option>
+    </select>
+    <div class='container'>
+      <!-- Top navigation bar -->
+      <nav
+        class='navbar navbar-expand-lg navbar-light bg-light justify-content-end'
+      >
+        <ul class='navbar-nav'>
+          <li class='nav-item'>
+            <a class='nav-link' href='#'>Rooms</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' href='#'>Users</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' href='#'>Friends</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' href='#'>LogOut</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Chat window and user list -->
+      <div class='row'>
+        <div class='col-sm-8'>
+          <div class='card chat-window'>
+            <div class='card-body'>
+              <!-- Chat messages will be displayed here -->
+              <ul id='messages' style='list-style-type: none'></ul>
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-4'>
+          <div class='card online-users-box'>
+            <div class='card-body'>
+              <h5 class='card-title' id='usercount'></h5>
+              <ul class='list-group user-list'>
+                <!-- User list will be displayed here -->
+              </ul>
+              <button class='btn btn-danger exit-btn mt-2'>Exit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat input form -->
+      <div class='row mt-3'>
+        <div class='col-sm-8'>
+          <form onsubmit='return false'>
+            <div class='input-group'>
+              <input
+                id='message'
+                type='text'
+                class='form-control'
+                placeholder='Type your message here...'
+                onkeydown='if(event.keyCode==13) submitNewMessage()'
+                autocomplete='off'
+              />
+              <div class='input-group-append'>
+                <button
+                  class='btn btn-primary'
+                  type='button'
+                  onclick='submitNewMessage()'
+                >
+                  Send
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load Bootstrap JS (optional) -->
+    <script src='https://code.jquery.com/jquery-3.5.1.slim.min.js'></script>
+    <script
+      src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js'
+    ></script>
+    <script
+      src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js'
+      integrity='sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA=='
+      crossorigin='anonymous'
+      referrerpolicy='no-referrer'
+    ></script>
+    <script>let nickname="{{nickname}}"</script>
+    <script src='chat.js'></script>
+  </body>
+</html>

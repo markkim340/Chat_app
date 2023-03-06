@@ -3,7 +3,6 @@ const socket = io('http://localhost:3003', { transports: ['websocket'] });
 const messageInput = document.getElementById('message');
 const messages = document.getElementById('messages');
 
-let nickname = '';
 let roomName = '대기실';
 
 socket.emit('logIn', nickname, roomName);
@@ -51,7 +50,6 @@ const buildNewMessage = (message) => {
 };
 
 function joinRoom(nickname) {
-  console.log('제발되라', nickname);
   nickname = nickname;
   const roomOptions = document.getElementById('roomOptions');
   const roomNameToJoin = roomOptions.options[roomOptions.selectedIndex].value;

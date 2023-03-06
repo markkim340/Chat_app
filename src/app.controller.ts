@@ -1,27 +1,38 @@
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Redirect,
+  Render,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
 
 @Controller()
 export class AppController {
   @Get()
-  getIndexPage(@Res() res: Response) {
-    res.sendFile('login.html', { root: 'static' });
-  }
+  @Render('login')
+  getIndexPage() {}
 
-  @Post()
-  login(@Res() res: Response, @Body('nickname') nickname: string) {
-    res.sendFile('chat.html', { root: 'static' });
-    res.redirect('chat');
-  }
-
-  @Post('chat')
-  getChatPage(
+  @Post('login')
+  @Redirect('chat')
+  login(
     @Req() req: Request,
     @Res() res: Response,
     @Body('nickname') nickname: string,
   ) {
-    const _session = req.session;
-    _session.nickname = _session;
-    res.sendFile('chat.html', { root: 'static' });
+    const session: any = req.session;
+    session.nickname = nickname;
+  }
+
+  @Get('chat')
+  @Render('chat')
+  getChatPage(@Req() req: Request, @Res() res: Response) {
+    const nickname = req.session['nickname'];
+    if (!req.session['nickname']) {
+      res.redirect('/');
+    } else return { nickname: nickname };
   }
 }
