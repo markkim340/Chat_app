@@ -5,6 +5,7 @@
 - 23.03.01부터 학습용으로 개발중인 개인 미니 프로젝트입니다.
 
 - db,redis,loadbalancer 기능이 추가될 예정입니다.
+- Room, User, Friends, Auth 기능이 추가될 예정입니다.
 
 
 <img width="800" alt="스크린샷 2023-03-07 오후 7 40 23" src="https://user-images.githubusercontent.com/70873668/223399022-d84a38e9-a7f7-4c48-bf53-b57deb84fc17.png">
