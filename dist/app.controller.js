@@ -20,8 +20,17 @@ let AppController = class AppController {
         const session = req.session;
         session.nickname = nickname;
     }
+    logout(req, res) {
+        req.session.destroy((err) => {
+            if (err) {
+                throw err;
+            }
+            res.redirect('/');
+        });
+    }
     getChatPage(req, res) {
         const nickname = req.session['nickname'];
+        console.log(req.session);
         if (!req.session['nickname']) {
             res.redirect('/');
         }
@@ -46,6 +55,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, String]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('logout'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "logout", null);
 __decorate([
     (0, common_1.Get)('chat'),
     (0, common_1.Render)('chat'),

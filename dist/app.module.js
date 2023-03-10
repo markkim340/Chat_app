@@ -15,7 +15,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const app_controller_1 = require("./app.controller");
 const typeorm_1 = require("@nestjs/typeorm");
-const rooms_module_1 = require("./rooms/rooms.module");
+const chat_module_1 = require("./chat/chat.module");
 const database_config_1 = __importDefault(require("./config/database.config"));
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
@@ -34,7 +34,7 @@ AppModule = __decorate([
                 useFactory: async (config) => (Object.assign({}, config.get('database'))),
             }),
             logger_module_1.LoggerModule,
-            rooms_module_1.RoomsModule,
+            chat_module_1.ChatModule,
         ],
         controllers: [app_controller_1.AppController],
     })

@@ -27,10 +27,21 @@ export class AppController {
     session.nickname = nickname;
   }
 
+  @Post('logout')
+  logout(@Req() req: Request, @Res() res: Response) {
+    req.session.destroy((err) => {
+      if (err) {
+        throw err;
+      }
+      res.redirect('/');
+    });
+  }
+
   @Get('chat')
   @Render('chat')
   getChatPage(@Req() req: Request, @Res() res: Response) {
     const nickname = req.session['nickname'];
+    console.log(req.session);
     if (!req.session['nickname']) {
       res.redirect('/');
     } else return { nickname: nickname };

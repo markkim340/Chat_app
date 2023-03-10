@@ -44,7 +44,6 @@ async function bootstrap() {
       saveUninitialized: false,
     }),
   );
-
   const port = configService.get<string>(SERVER_PORT);
   await app.listen(port, () => Logger.log(`🚀Running on port ${port}`));
 }

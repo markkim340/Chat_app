@@ -1,4 +1,4 @@
-import { Rooms } from 'src/rooms/rooms.entity';
+import { Rooms } from 'src/chat/Rooms.entity';
 import {
   Column,
   CreateDateColumn,

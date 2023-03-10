@@ -9,14 +9,14 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { RoomsService } from './rooms.service';
+import { ChatService } from './chat.service';
 
 @WebSocketGateway()
-export class RoomsGateway
+export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   @WebSocketServer() public server: Server;
-  constructor(private roomsService: RoomsService) {}
+  constructor(private chatService: ChatService) {}
 
   afterInit() {
     console.log('Init');
@@ -42,7 +42,7 @@ export class RoomsGateway
     client.join(roomName); // 기본 채팅방 입장
     this.server.emit('joinMessage', nickname, roomName);
 
-    const joinedUsersCount = client.nsp.adapter.rooms.size - 1;
+    const joinedUsersCount = this.server.engine['clientsCount'];
     this.server.emit('joinUserCount', joinedUsersCount);
   }
 
@@ -57,6 +57,8 @@ export class RoomsGateway
     this.server
       .to(roomNameToJoin)
       .emit('joinMessage', nickname, roomNameToJoin);
+
+    console.log(client);
   }
 
   @SubscribeMessage('message')

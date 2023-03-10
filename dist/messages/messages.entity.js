@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Messages = void 0;
-const rooms_entity_1 = require("../rooms/rooms.entity");
+const Rooms_entity_1 = require("../chat/Rooms.entity");
 const typeorm_1 = require("typeorm");
 let Messages = class Messages {
 };
@@ -31,8 +31,8 @@ __decorate([
     __metadata("design:type", Date)
 ], Messages.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => rooms_entity_1.Rooms, (room) => room.messages),
-    __metadata("design:type", rooms_entity_1.Rooms)
+    (0, typeorm_1.ManyToOne)(() => Rooms_entity_1.Rooms, (room) => room.messages),
+    __metadata("design:type", Rooms_entity_1.Rooms)
 ], Messages.prototype, "room", void 0);
 Messages = __decorate([
     (0, typeorm_1.Entity)()
