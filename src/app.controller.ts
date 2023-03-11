@@ -41,7 +41,7 @@ export class AppController {
   @Render('chat')
   getChatPage(@Req() req: Request, @Res() res: Response) {
     const nickname = req.session['nickname'];
-    console.log(req.session);
+
     if (!req.session['nickname']) {
       res.redirect('/');
     } else return { nickname: nickname };

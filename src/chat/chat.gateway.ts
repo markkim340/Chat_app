@@ -11,6 +11,8 @@ import {
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
 
+const joinUsers = [];
+
 @WebSocketGateway()
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
@@ -57,8 +59,6 @@ export class ChatGateway
     this.server
       .to(roomNameToJoin)
       .emit('joinMessage', nickname, roomNameToJoin);
-
-    console.log(client);
   }
 
   @SubscribeMessage('message')

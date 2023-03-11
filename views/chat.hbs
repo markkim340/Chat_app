@@ -18,7 +18,7 @@
   </head>
   <body>
     <select id='roomOptions' onchange='joinRoom("{{nickname}}")'>
-      <option value='대기실' selected>대기실</option>
+      <option value='대기실' selected disabled hidden>====채팅방 선택====</option>
       <option value='채팅방 1'>채팅방 1</option>
       <option value='채팅방 2'>채팅방 2</option>
     </select>
@@ -60,7 +60,10 @@
               <ul class='list-group user-list'>
                 <!-- User list will be displayed here -->
               </ul>
-              <button class='btn btn-danger exit-btn mt-2'>Exit</button>
+              <button
+                class='btn btn-danger exit-btn mt-2'
+                onclick='leftRoom("{{nickname}}")'
+              >Exit</button>
             </div>
           </div>
         </div>
