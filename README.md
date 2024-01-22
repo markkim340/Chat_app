@@ -1,8 +1,7 @@
 # 📪 Chat_app
-# https://markproject.site/
 ### NestJS, Socket.io, Nginx, Session <h3>
 - 반갑습니다. Socket.io를 사용하여 구현한 간단한 채팅서비스 입니다.
-- 23.03.01부터 학습용으로 개발중인 개인 미니 프로젝트입니다.
+- 학습용 개인 미니 프로젝트입니다.
 
 - db,redis,loadbalancer 기능이 추가될 예정입니다.
 - Room, User, Friends, Auth 기능이 추가될 예정입니다.
